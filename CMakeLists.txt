@@ -52,3 +52,8 @@ add_subdirectory(timer)
 add_subdirectory(uart)
 add_subdirectory(usb)
 add_subdirectory(watchdog)
+
+#Custom
+add_subdirectory(dozo-arcade-ca)
+add_subdirectory(dozo-dd)
+add_subdirectory(goodestick)

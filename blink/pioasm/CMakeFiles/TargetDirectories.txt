@@ -1,3 +1,0 @@
-/home/preston/Documents/pico-sdk/pico-examples/blink/pioasm/CMakeFiles/pioasm.dir
-/home/preston/Documents/pico-sdk/pico-examples/blink/pioasm/CMakeFiles/edit_cache.dir
-/home/preston/Documents/pico-sdk/pico-examples/blink/pioasm/CMakeFiles/rebuild_cache.dir
