@@ -1,0 +1,13 @@
+# Target labels
+ PioasmBuild
+# Source files and their labels
+/home/preston/Documents/pico-sdk/pico-examples/blink/adc/dma_capture/CMakeFiles/PioasmBuild
+/home/preston/Documents/pico-sdk/pico-examples/blink/adc/dma_capture/CMakeFiles/PioasmBuild.rule
+/home/preston/Documents/pico-sdk/pico-examples/blink/adc/dma_capture/CMakeFiles/PioasmBuild-complete.rule
+/home/preston/Documents/pico-sdk/pico-examples/blink/adc/dma_capture/pioasm/src/PioasmBuild-stamp/PioasmBuild-build.rule
+/home/preston/Documents/pico-sdk/pico-examples/blink/adc/dma_capture/pioasm/src/PioasmBuild-stamp/PioasmBuild-configure.rule
+/home/preston/Documents/pico-sdk/pico-examples/blink/adc/dma_capture/pioasm/src/PioasmBuild-stamp/PioasmBuild-download.rule
+/home/preston/Documents/pico-sdk/pico-examples/blink/adc/dma_capture/pioasm/src/PioasmBuild-stamp/PioasmBuild-install.rule
+/home/preston/Documents/pico-sdk/pico-examples/blink/adc/dma_capture/pioasm/src/PioasmBuild-stamp/PioasmBuild-mkdir.rule
+/home/preston/Documents/pico-sdk/pico-examples/blink/adc/dma_capture/pioasm/src/PioasmBuild-stamp/PioasmBuild-patch.rule
+/home/preston/Documents/pico-sdk/pico-examples/blink/adc/dma_capture/pioasm/src/PioasmBuild-stamp/PioasmBuild-update.rule
