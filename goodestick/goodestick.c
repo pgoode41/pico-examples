@@ -1,6 +1,7 @@
 //##############################################################################################//
 //##############################################################################################//
 #include "pico/stdlib.h"
+#include "pico/bootrom.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -17,7 +18,7 @@ int main()
     stdio_init_all();
 
     // Init LED PIN for to make accessible to the firmware.
-    const uint LED_PIN = PICO_DEFAULT_LED_PIN;
+    //const uint LED_PIN = PICO_DEFAULT_LED_PIN;
 
     // Run Main Loop
     while (true)
@@ -29,7 +30,7 @@ int main()
 //##############################################################################################//
 void FastFire(uint pinNumber1, uint pinNumber2, uint pinNumber3, uint duration, uint gpio_0_start_state, uint gpio_1_start_state, uint gpio_2_start_state)
 {
-    printf("HIT!!!!!!!!\n");
+    //printf("HIT!!!!!!!!\n");
     if (pinNumber2 == 99)
     {
         // Disable secondary pin support if pinNumber2 is set to 99
@@ -114,15 +115,11 @@ void SuperFastFire(uint pinNumber1, uint pinNumber2, uint pinNumber3, uint durat
         // Set Pin direction
         gpio_set_dir(pinNumber1, GPIO_OUT);
 
-        // Pull down single pin
-        gpio_put(pinNumber1, 0);
-        busy_wait_us_32(1);
-
         gpio_put(pinNumber1, gpio_0_start_state);
-        busy_wait_us_32(1);
+        busy_wait_us_32(duration);
 
         gpio_put(pinNumber1, 0);
-        busy_wait_us_32(1);
+        busy_wait_us_32(duration);
     }
     else if (pinNumber2 != 99)
     {
@@ -136,16 +133,12 @@ void SuperFastFire(uint pinNumber1, uint pinNumber2, uint pinNumber3, uint durat
         gpio_set_dir(pinNumber1, GPIO_OUT);
         gpio_set_dir(pinNumber2, GPIO_OUT);
 
-        // Pull down all pins
-        gpio_put(pinNumber1, 0);
-        gpio_put(pinNumber2, 0);
-        busy_wait_us_32(1);
         gpio_put(pinNumber1, gpio_0_start_state);
         gpio_put(pinNumber2, gpio_1_start_state);
         busy_wait_us_32(duration);
         gpio_put(pinNumber1, 0);
         gpio_put(pinNumber2, 0);
-        busy_wait_us_32(1);
+        busy_wait_us_32(duration);
     }
     else if (pinNumber3 != 99) {
         // Disable secondary pin support if pinNumber2 is set to 99
@@ -160,11 +153,6 @@ void SuperFastFire(uint pinNumber1, uint pinNumber2, uint pinNumber3, uint durat
         gpio_set_dir(pinNumber2, GPIO_OUT);
         gpio_set_dir(pinNumber3, GPIO_OUT);
 
-        // Pull down all pins
-        gpio_put(pinNumber1, 0);
-        gpio_put(pinNumber2, 0);
-        gpio_put(pinNumber3, 0);
-        busy_wait_us_32(1);
         gpio_put(pinNumber1, gpio_0_start_state);
         gpio_put(pinNumber2, gpio_1_start_state);
         gpio_put(pinNumber2, gpio_2_start_state);
@@ -172,7 +160,7 @@ void SuperFastFire(uint pinNumber1, uint pinNumber2, uint pinNumber3, uint durat
         gpio_put(pinNumber1, 0);
         gpio_put(pinNumber2, 0);
         gpio_put(pinNumber3, 0);
-        busy_wait_us_32(1);
+        busy_wait_us_32(duration);
     }
 }
 //##############################################################################################//
@@ -185,7 +173,6 @@ int UsbInput()
     //  The getchar_timeout_us() func was the only input I could get to work.
     //  Don't use anything else for usb input unless you know it works.
     char UsbInput[16];
-    sleep_ms(5);
 
     UsbInput[0] = getchar_timeout_us(0);
     UsbInput[1] = getchar_timeout_us(0);
@@ -332,21 +319,26 @@ int UsbInput()
 //##############################################################################################//
     else if (program_modeCode == 2)
     {
-            SuperFastFire(selectedgpio_0_number, selectedgpio_1_number, selectedgpio_2_number, adjustedPulseDuration, selectedgpio_0_start_state, selectedgpio_1_start_state, selectedgpio_2_start_state);
+        SuperFastFire(selectedgpio_0_number, selectedgpio_1_number, selectedgpio_2_number, adjustedPulseDuration, selectedgpio_0_start_state, selectedgpio_1_start_state, selectedgpio_2_start_state);
     }
 //##############################################################################################//
     else if (program_modeCode == 3)
-        {
-            //Input Pin Logic
-            FastFire(selectedgpio_0_number, selectedgpio_1_number, selectedgpio_2_number, adjustedPulseDuration, selectedgpio_0_start_state, selectedgpio_1_start_state, selectedgpio_2_start_state);
-            SuperFastFire(selectedgpio_0_number, selectedgpio_1_number, selectedgpio_2_number, adjustedPulseDuration, selectedgpio_0_start_state, selectedgpio_1_start_state, selectedgpio_2_start_state);
-        }
-
+    {
+        //Input Pin Logic
+        FastFire(selectedgpio_0_number, selectedgpio_1_number, selectedgpio_2_number, adjustedPulseDuration, selectedgpio_0_start_state, selectedgpio_1_start_state, selectedgpio_2_start_state);
+        SuperFastFire(selectedgpio_0_number, selectedgpio_1_number, selectedgpio_2_number, adjustedPulseDuration, selectedgpio_0_start_state, selectedgpio_1_start_state, selectedgpio_2_start_state);
+    }
 //##############################################################################################//
     else if (program_modeCode == 4)
     {
-            FastFire(selectedgpio_0_number, selectedgpio_1_number, selectedgpio_2_number, adjustedPulseDuration, selectedgpio_0_start_state, selectedgpio_1_start_state, selectedgpio_2_start_state);
-            FastFire(28, 99, 99, 1, selectedgpio_0_start_state, selectedgpio_1_start_state, selectedgpio_2_start_state);
+        FastFire(selectedgpio_0_number, selectedgpio_1_number, selectedgpio_2_number, adjustedPulseDuration, selectedgpio_0_start_state, selectedgpio_1_start_state, selectedgpio_2_start_state);
+        //FastFire(28, 99, 99, 1, selectedgpio_0_start_state, selectedgpio_1_start_state, selectedgpio_2_start_state);
+    }
+//##############################################################################################//
+    else if (program_modeCode == 5)
+    {
+        reset_usb_boot(0,0);
+        printf("REBOOT\n");
     }
     return 0;
 }
